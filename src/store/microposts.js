@@ -1,6 +1,8 @@
-const microposts = {
-    namespaced: true,
-    state: {
+import { defineStore } from 'pinia'
+
+export const useMicropostsStore = defineStore({
+    id: 'microposts',
+    state: () => ({
         microposts: [
         // {
         //"id":"1",
@@ -12,7 +14,7 @@ const microposts = {
         //"likes":"23",                             
         //}
         ]
-    },
+    }),
     getters: {
         getMicroposts (state) {
             return state.microposts;
@@ -22,91 +24,78 @@ const microposts = {
             return state.microposts[index]
         },  
     }, 
-    mutations: {
-        addMicroposts(state, microposts){
-            state.microposts = microposts
+    actions: {
+        addMicroposts(microposts){
+            this.microposts = microposts
         },
-        addMicropost(state, micropost){
-            state.microposts = [...state.microposts, micropost]
+        addMicropost(micropost){
+            this.microposts = [...this.microposts, micropost]
         },
-        updateMicropost(state, data){
-            state.microposts = state.microposts.map(micropost => (micropost.id === data.id ? data : micropost))
+        updateMicropost(data){
+            this.microposts = this.microposts.map(micropost => (micropost.id === data.id ? data : micropost))
         },
-        deleteMicropost(state, idToRemove){
-            state.microposts.forEach( function () {       
-                state.microposts = state.microposts.filter(function(micropost) {
+        deleteMicropost(idToRemove){
+            this.microposts.forEach( function () {       
+                this.microposts = this.microposts.filter(function(micropost) {
                   return micropost.id !== idToRemove
                 })
             })
         },
-        deleteMicroposts(state){
-            state.microposts = []
-        }, 
-    },
-    actions: {
-        async getMicroposts({commit}) {
+        deleteMicroposts(){
+            this.microposts = []
+        },     
+        async getMicropostsInDB() {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php`)
 				const data = await response.json()
-                commit('addMicroposts', data)
-                return true
+                this.addMicroposts(data)
 			} 
 			catch (error) {
 				console.error(error)
-                return false
 			}
 		},
-        async addMicropost({commit, rootGetters}, post) {
+        async addMicropostInDB(newMicropost) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?session_id=${rootGetters['user/getUser'].session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?session_id=${newMicropost.session_id}`, {
 					method: 'POST',
-					body: JSON.stringify(post),
+					body: JSON.stringify(newMicropost.post),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },
 				})
 				const data = await response.json()
                 console.log(data)
-                commit('addMicropost', data)
-                return true
+                this.addMicropost(data)
 			} 
 			catch (error) {
 				console.error(error)
-                return false
 			}
 		},
-        async updateMicropost({commit, rootGetters}, post) {
+        async updateMicropostInDB(micropost) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${post.id}&session_id=${rootGetters['user/getUser'].session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
 					method: 'PUT',
-					body: JSON.stringify(post),
+					body: JSON.stringify(micropost.post),
                     headers: { 'Content-type': 'application/json; charset=UTF-8' },
 				})
 				const data = await response.json()
                 console.log(data)
-                commit('updateMicropost', data)
-                return true
+                this.updateMicropost(data)
 			} 
-			catch (error) {
-				console.error(error)
-                return false
+				catch (error) {
+					console.error(error)
 			}
 		},
-		async deleteMicropost({commit, rootGetters},id) {
+		async deleteMicropostInDB(micropost) {
 			try {
-				await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${id}&session_id=${rootGetters['user/getUser'].session_id}`, {
-					method: 'DELETE',                
-				})
-				commit('deleteMicropost', id)
-				return true
+			await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
+                method: 'DELETE',                
+            })
+            this.deleteMicropost(micropost.id)
 			} 
 			catch (error) {
 				console.error(error);
-                return false
 			}
 		},
 
     },
-    modules: {
-    }
-}
-export default 
-    microposts
+})
+

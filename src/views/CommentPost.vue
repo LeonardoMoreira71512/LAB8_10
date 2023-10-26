@@ -40,7 +40,18 @@
 <script>
 import Footer from '@/components/Footer.vue'
 import Menu from '@/components/Menu.vue'
+
+import { useCommentsStore } from '@/store/comments'
+import { useUserStore } from '@/store/user'
+
 export default {  
+
+	setup() {
+		const userStore = useUserStore()
+		const commentsStore = useCommentsStore()
+		return { userStore, commentsStore }
+  	},
+
     components: {
 		Footer,
         Menu
@@ -61,57 +72,21 @@ export default {
       }
     },
 
-	created: function () {
-		this.getUser()
+	mounted() {
+
 	},
 	
 	methods: {
-		handleSubmit() {
-			this.submitting = true
-
-			if (this.invalidContent) {
-				this.error = true
-				return
-			}
-			this.commentPost(this.comment)
-		},
-		commentPost(comment) {
-			const data = {
-				post: comment,
-				session_id: this.user.session_id,
-                post_id: this.$route.params.id
-			}
-			this.$store.dispatch('comments/addComment', data)
-			this.$router.push('/message/7')
-		},
-		cancel() {
-			this.$router.push('/')
-		},
-		getUser() {
-            this.user = this.$store.getters['user/getUser']
-		},      
+     
 	},
 
 
 	
 	computed: {
-		invalidContent: function () {
-			if (this.comment.content === '' || this.comment.content.length<10 || this.comment.content.match(/<svg\/onload|<svg onload|<script>/g)!=null ) return true
-			else return false
-		},
 
-		userLoggedIn: function () {
-			this.getUser()
-			for (var i in this.user) return true
-			return false
-		},
 	},
 	directives: {
-		autofocus: {
-			inserted(el) {
-				el.focus()
-			}
-		}
+
 	},
 }
 </script>
@@ -119,40 +94,5 @@ export default {
 <style scoped>
 
 
-  #post-form {
-	margin: 0 auto;
-	max-width: 800px;
-  }
-
-  form {
-    margin-bottom: 20rem;
-  }
-
-input.has-error, input.has-error:hover, input.has-error:focus, input.has-error:active,
-select.has-error,
-select.has-error:hover,
-select.has-error:focus,
-select.has-error:active,
-textarea.has-error,
-textarea.has-error:hover,
-textarea.has-error:focus,
-textarea.has-error:active {
-  border: 1px solid #d33c40;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #f4cecf;
-}
-
-input.is-success, input.is-success:hover, input.is-success:focus, input.is-success:active,
-select.is-success,
-select.is-success:hover,
-select.is-success:focus,
-select.is-success:active,
-textarea.is-success,
-textarea.is-success:hover,
-textarea.is-success:focus,
-textarea.is-success:active {
-  border: 1px solid #29de7d;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #97efc0;
-}
-
-
+  
 </style>

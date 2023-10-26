@@ -5,7 +5,13 @@
 </template>
 
 <script>
+import { useUserStore } from '@/store/user'
+
 export default {
+	setup() {
+		const userStore = useUserStore()
+		return { userStore}
+  	},
 	data() {
 		return {
 			user: {

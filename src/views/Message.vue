@@ -8,10 +8,16 @@
 <script>
 
 
-
+import { useUserStore } from '@/store/user'
 
 
 export default {
+
+	setup() {
+		const userStore = useUserStore()
+		return { userStore }
+  	},	
+
     data() {
         return {
             message: ''
@@ -37,10 +43,10 @@ export default {
                 this.message = "Welcome! You can now login"
                 }
 				if (this.$route.params.id == 5) {
-                this.message = "Welcome back " + this.$store.getters['user/getUser'].name + "!"
+                this.message = "Welcome back " + this.userStore.getUser.name + "!"
                 }
 				if (this.$route.params.id == 6) {
-                this.message = "Bye, come back soon!"
+                this.message = `Bye ${this.userStore.user.name}, come back soon!`
                 }	
 				if (this.$route.params.id == 7) {
                 this.message = "Success: Comment added to database"

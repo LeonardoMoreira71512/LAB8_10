@@ -10,7 +10,18 @@
 <script>
 import Footer from '@/components/Footer.vue'
 import Menu from '@/components/Menu.vue'
-export default {  
+
+import { useUserStore } from '@/store/user'
+import { useMicropostsStore } from '@/store/microposts'
+
+export default { 
+
+	setup() {
+		const userStore = useUserStore()
+		const micropostsStore = useMicropostsStore()
+		return { userStore, micropostsStore}
+  	},
+
     components: {
 		Footer,
         Menu
@@ -37,7 +48,7 @@ export default {
       }
     },
 
-	created: function () {
+	mounted() {
 
 	},
 	

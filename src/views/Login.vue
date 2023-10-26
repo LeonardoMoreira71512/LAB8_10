@@ -15,7 +15,15 @@
 import Footer from '@/components/Footer.vue'
 import Menu from '@/components/Menu.vue'
 
+import { useUserStore } from '@/store/user'
+
 export default {
+
+	setup() {
+		const userStore = useUserStore()
+		return { userStore }
+  	},
+
 	components: {
 		Footer,
         Menu
@@ -41,7 +49,7 @@ export default {
 	directives: {
 
 	},
-	created() {
+	mounted() {
 
 	}
 }

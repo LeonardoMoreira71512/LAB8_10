@@ -1,6 +1,8 @@
-const comments = {
-    namespaced: true,
-    state: {
+import { defineStore } from 'pinia'
+
+export const useCommentsStore = defineStore({
+    id: 'comments',
+    state: () => ({
         comments: [
         // {
         //"id":"1",
@@ -11,7 +13,7 @@ const comments = {
         //"created_at":"2016-10-18 12:14:51",                              
         //}
         ]
-    },
+    }),
     getters: {
         getComments (state) {
             return state.comments;
@@ -21,52 +23,45 @@ const comments = {
                 return c.micropost_id == id;
               })
               return results
-        },  
-
-
+        },
     }, 
-    mutations: {
-        addComments(state, comments){
-            state.comments = comments
-        },
-        addComment(state, comment){
-            state.comments = [...state.comments, comment]
-        },
-    },
     actions: {
-        async getComments({commit}) {
+
+        addComments(comments) {
+            this.comments = comments
+        },
+        addComment(comment) {
+            this.comments = [...this.comments, comment]
+        },
+
+        async getCommentsInDB() {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/comments.php`)
 				const data = await response.json()
-                commit('addComments', data)
-                return true
+                this.addComments(data)
 			} 
 			catch (error) {
 				console.error(error)
-                return false
 			}
 		},
-        async addComment({commit, rootGetters}, newComment) {
+        async addCommentInDB(newComment) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/comments.php?micropost_id=${newComment.post_id}&session_id=${rootGetters['user/getUser'].session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/comments.php?micropost_id=${newComment.post_id}&session_id=${newComment.session_id}`, {
 					method: 'POST',
 					body: JSON.stringify(newComment.post),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },
 				})
 				const data = await response.json()
                 console.log(data)
-                commit('addComment', data)
-                return true
+                this.addComment(data)
 			} 
 			catch (error) {
 				console.error(error)
-                return false
 			}
 		},
 
-    },
-    modules: {
     }
-}
-export default 
-    comments
+})
+
+
+
