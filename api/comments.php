@@ -36,7 +36,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 			// fechar a ligaçãbase de dados
 			mysqli_close($db);
 
-			
+			// filter non UTF-8 characters
+			$comments = mb_convert_encoding($comments,'UTF-8');			
 			// convert to JSON
 			$json = json_encode($comments);
 
@@ -82,7 +83,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 					showerror($db);
 
 			$comment = mysqli_fetch_assoc($result);
-
+			
 			$json=json_encode($comment);
 
 			// fechar a ligaço base de dados

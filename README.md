@@ -30,8 +30,15 @@ npm run dev
 ### Compile and Minify for Production
 
 ```sh
+nano vite.config.js
+// https://vitejs.dev/config/
+export default defineConfig({
+  base: '/~a12345/LAB8_10/dist/',
+})
+
 npm run build
 ```
+Note: Replace "12345" with your student number
 
 ### Lint with [ESLint](https://eslint.org/)
 

@@ -26,7 +26,7 @@ export const useUserStore = defineStore({
         tmpUser(user){
             this.tmp_user = user
         }, 	
-        async userExistsInDB(user) {
+        async userExistsDB(user) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php?email=${user.email}`, {
 					method: 'GET',
@@ -49,7 +49,7 @@ export const useUserStore = defineStore({
 				return false
 			}
 		}, 
-        async addUserInDB() {
+        async addUserDB() {
 			try {
                 const response = await fetch('http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php', {
 					method: 'POST',
@@ -66,7 +66,7 @@ export const useUserStore = defineStore({
 				return false			
 			}
 		},
-        async loginUserInDB(user) {
+        async loginUserDB(user) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php?email=${user.email}&password=${user.password}`)
 				const data = await response.json()
@@ -88,7 +88,7 @@ export const useUserStore = defineStore({
 				return false			
 			}
 		}, 
-        async logoutUserInDB(session_id) {
+        async logoutUserDB(session_id) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php?session_id=${session_id}`)
 				const data = await response.json()

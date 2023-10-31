@@ -36,7 +36,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 			// fechar a ligaçãbase de dados
 			mysqli_close($db);
 
-			
+			// filter non UTF-8 characters
+			$posts = mb_convert_encoding($posts,'UTF-8');				
 			// convert to JSON
 			$json = json_encode($posts);
 

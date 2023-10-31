@@ -44,17 +44,19 @@ export const useMicropostsStore = defineStore({
         deleteMicroposts(){
             this.microposts = []
         },     
-        async getMicropostsInDB() {
+        async getMicropostsDB() {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php`)
 				const data = await response.json()
                 this.addMicroposts(data)
+                return true
 			} 
 			catch (error) {
 				console.error(error)
+                return false
 			}
 		},
-        async addMicropostInDB(newMicropost) {
+        async addMicropostDB(newMicropost) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?session_id=${newMicropost.session_id}`, {
 					method: 'POST',
@@ -64,12 +66,14 @@ export const useMicropostsStore = defineStore({
 				const data = await response.json()
                 console.log(data)
                 this.addMicropost(data)
+                return true
 			} 
 			catch (error) {
 				console.error(error)
+                return false
 			}
 		},
-        async updateMicropostInDB(micropost) {
+        async updateMicropostDB(micropost) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
 					method: 'PUT',
@@ -79,20 +83,25 @@ export const useMicropostsStore = defineStore({
 				const data = await response.json()
                 console.log(data)
                 this.updateMicropost(data)
-			} 
-				catch (error) {
-					console.error(error)
-			}
-		},
-		async deleteMicropostInDB(micropost) {
-			try {
-			await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
-                method: 'DELETE',                
-            })
-            this.deleteMicropost(micropost.id)
+                return true
 			} 
 			catch (error) {
-				console.error(error);
+				console.error(error)
+                return false
+
+			}
+		},
+		async deleteMicropostDB(micropost) {
+			try {
+                await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
+                    method: 'DELETE',                
+                })
+                this.deleteMicropost(micropost.id)
+                return true
+			} 
+			catch (error) {
+				console.error(error)
+                return false
 			}
 		},
 

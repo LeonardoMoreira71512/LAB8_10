@@ -34,17 +34,19 @@ export const useCommentsStore = defineStore({
             this.comments = [...this.comments, comment]
         },
 
-        async getCommentsInDB() {
+        async getCommentsDB() {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/comments.php`)
 				const data = await response.json()
                 this.addComments(data)
+                return true
 			} 
 			catch (error) {
 				console.error(error)
+                return false
 			}
 		},
-        async addCommentInDB(newComment) {
+        async addCommentDB(newComment) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/comments.php?micropost_id=${newComment.post_id}&session_id=${newComment.session_id}`, {
 					method: 'POST',
@@ -54,9 +56,11 @@ export const useCommentsStore = defineStore({
 				const data = await response.json()
                 console.log(data)
                 this.addComment(data)
+                return true
 			} 
 			catch (error) {
 				console.error(error)
+                return false
 			}
 		},
 
