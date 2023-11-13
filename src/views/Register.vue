@@ -1,7 +1,7 @@
 <template>
 <div>
 		
-	<Menu />
+	<Header />
 
 	
 	<Footer />
@@ -11,7 +11,7 @@
 <script>
 
 import Footer from '@/components/Footer.vue'
-import Menu from '@/components/Menu.vue'
+import Header from '@/components/Header.vue'
 
 import { useUserStore } from '@/store/user'
 
@@ -23,7 +23,7 @@ export default {
   	},	
 	components: {
 		Footer,
-        Menu
+        Header
 	},
 	data() {
       return {	

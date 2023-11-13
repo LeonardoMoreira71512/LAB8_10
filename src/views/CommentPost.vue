@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Menu />
+        <Header />
         <div id="post-form" class="container">
             <div v-if="!userLoggedIn" >
                         <h3 style="text-align: center;">Login first </h3>
@@ -39,7 +39,7 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
-import Menu from '@/components/Menu.vue'
+import Header from '@/components/Header.vue'
 
 import { useCommentsStore } from '@/store/comments'
 import { useUserStore } from '@/store/user'
@@ -54,7 +54,7 @@ export default {
 
     components: {
 		Footer,
-        Menu
+        Header
 	},	
 	data() {
       return {

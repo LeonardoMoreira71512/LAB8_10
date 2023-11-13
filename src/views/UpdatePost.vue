@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Menu />
+        <Header />
 
         <Footer />
     </div>
@@ -9,7 +9,7 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
-import Menu from '@/components/Menu.vue'
+import Header from '@/components/Header.vue'
 
 import { useUserStore } from '@/store/user'
 import { useMicropostsStore } from '@/store/microposts'
@@ -24,7 +24,7 @@ export default {
 
     components: {
 		Footer,
-        Menu
+        Header
 	},	
 	data() {
       return {
