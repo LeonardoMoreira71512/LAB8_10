@@ -23,7 +23,7 @@ const routes = [
     component: Register
   },   
   {
-    path: '/message/:id',
+    path: '/message/:id?',
     component: Message
   },
   {

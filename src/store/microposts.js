@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useUserStore } from './user'
 
 export const useMicropostsStore = defineStore({
     id: 'microposts',
@@ -58,7 +59,8 @@ export const useMicropostsStore = defineStore({
 		},
         async addMicropostDB(newMicropost) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?session_id=${newMicropost.session_id}`, {
+                const userStore = useUserStore()
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?session_id=${userStore.user.session_id}`, {
 					method: 'POST',
 					body: JSON.stringify(newMicropost.post),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -75,7 +77,8 @@ export const useMicropostsStore = defineStore({
 		},
         async updateMicropostDB(micropost) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
+                const userStore = useUserStore()                
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${userStore.user.session_id}`, {
 					method: 'PUT',
 					body: JSON.stringify(micropost.post),
                     headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -93,7 +96,7 @@ export const useMicropostsStore = defineStore({
 		},
 		async deleteMicropostDB(micropost) {
 			try {
-                await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
+                await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${userStore.user.session_id}`, {
                     method: 'DELETE',                
                 })
                 this.deleteMicropost(micropost.id)
