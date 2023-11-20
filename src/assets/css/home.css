@@ -1,0 +1,27 @@
+/* Estilos da página inicial*/
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+  
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+  
+.carousel-overlay {
+    background-color: rgba(128, 128, 128, 0.2);
+    padding: 5px;
+}
+
+.post{
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #8508877d;
+    border-radius: 5px;
+    box-shadow: 0px 0px 40px #008b8b;
+  }

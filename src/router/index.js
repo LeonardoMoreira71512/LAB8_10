@@ -7,15 +7,10 @@ import Logout from '../views/Logout.vue'
 import Post from '../views/Post.vue'
 import UpdatePost from '../views/UpdatePost.vue'
 import CommentPost from '../views/CommentPost.vue'
-import Home from '../views/Home.vue'
 
 const routes = [
   {
     path: '/',
-    component: Home
-  },
-  {
-    path: '/microposts',
     component: Microposts
   },
   {

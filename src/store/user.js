@@ -28,7 +28,7 @@ export const useUserStore = defineStore({
         }, 	
         async userExistsDB(user) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php?email=${user.email}`, {
+				const response = await fetch(`http://localhost/LAB8_10/api/users.php?email=${user.email}`, {
 					method: 'GET',
 				})
                 const data = await response.json()
@@ -51,7 +51,7 @@ export const useUserStore = defineStore({
 		}, 
         async addUserDB() {
 			try {
-                const response = await fetch('http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php', {
+                const response = await fetch('http://localhost/LAB8_10/api/users.php', {
 					method: 'POST',
 					body: JSON.stringify(this.tmp_user),
 					headers: { 'Content-type': 'text/html; charset=UTF-8' },
@@ -68,7 +68,7 @@ export const useUserStore = defineStore({
 		},
         async loginUserDB(user) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php?email=${user.email}&password=${user.password}`)
+				const response = await fetch(`http://localhost/LAB8_10/api/users.php?email=${user.email}&password=${user.password}`)
 				const data = await response.json()
 				if ( data == null) {
 					alert('Error: Wrong credentials')
@@ -90,7 +90,7 @@ export const useUserStore = defineStore({
 		}, 
         async logoutUserDB() {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/users.php?session_id=${this.user.session_id}`)
+				const response = await fetch(`http://localhost/LAB8_10/api/users.php?session_id=${this.user.session_id}`)
 				const data = await response.json()
                 console.log('received data:',data)
                 this.logoutUser()

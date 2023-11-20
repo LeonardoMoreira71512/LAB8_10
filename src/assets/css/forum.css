@@ -1,0 +1,37 @@
+/* Style for forum posts */
+
+.forum-post {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.forum-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-author {
+    font-weight: bold;
+}
+
+.post-date {
+    font-size: 12px;
+    color: #777;
+}
+
+.post-content {
+    font-size: 16px;
+}
+
+/* Style for forum comments */
+.comment {
+    margin-top: 20px;
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+}

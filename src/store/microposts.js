@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { useUserStore } from './user'
 
 export const useMicropostsStore = defineStore({
     id: 'microposts',
@@ -9,7 +8,7 @@ export const useMicropostsStore = defineStore({
         //"id":"1",
         //"content":"bla bla bla",
         //"user_id":"45",        
-        //"author":"John Smith", 
+        //"name":"John Smith", 
         //"created_at":"2016-10-18 12:14:51",   
         //"updated_at":"2016-10-18 12:14:51", 
         //"likes":"23",                             
@@ -45,24 +44,22 @@ export const useMicropostsStore = defineStore({
         deleteMicroposts(){
             this.microposts = []
         },     
-        async getMicropostsDB() {
+        async getMicropostsInDB() {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php`)
+				const response = await fetch(`http://localhost/LAB8_10/api/microposts.php`)
 				const data = await response.json()
                 this.addMicroposts(data)
                 return true
 			} 
 			catch (error) {
 				console.error(error)
-                return false
 			}
 		},
-        async addMicropostDB(newMicropost) {
+        async addMicropostInDB(newMicropost) {
 			try {
-                const userStore = useUserStore()
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?session_id=${userStore.user.session_id}`, {
+				const response = await fetch(`http://localhost/LAB8_10/api/microposts.php?session_id=${newMicropost.session_id}`, {
 					method: 'POST',
-					body: JSON.stringify(newMicropost.post),
+					body: JSON.stringify(newMicropost),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },
 				})
 				const data = await response.json()
@@ -72,13 +69,11 @@ export const useMicropostsStore = defineStore({
 			} 
 			catch (error) {
 				console.error(error)
-                return false
 			}
 		},
-        async updateMicropostDB(micropost) {
+        async updateMicropostInDB(micropost) {
 			try {
-                const userStore = useUserStore()                
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${userStore.user.session_id}`, {
+				const response = await fetch(`http://localhost/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
 					method: 'PUT',
 					body: JSON.stringify(micropost.post),
                     headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -86,28 +81,22 @@ export const useMicropostsStore = defineStore({
 				const data = await response.json()
                 console.log(data)
                 this.updateMicropost(data)
-                return true
 			} 
-			catch (error) {
-				console.error(error)
-                return false
-
+				catch (error) {
+					console.error(error)
 			}
 		},
-		async deleteMicropostDB(micropost) {
+		async deleteMicropostInDB(micropost) {
 			try {
-                await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${userStore.user.session_id}`, {
-                    method: 'DELETE',                
-                })
-                this.deleteMicropost(micropost.id)
-                return true
+			await fetch(`http://localhost/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
+                method: 'DELETE',                
+            })
+            this.deleteMicropost(micropost.id)
 			} 
 			catch (error) {
-				console.error(error)
-                return false
+				console.error(error);
 			}
 		},
 
     },
 })
-
