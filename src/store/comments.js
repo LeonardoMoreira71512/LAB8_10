@@ -36,7 +36,7 @@ export const useCommentsStore = defineStore({
 
         async getCommentsInDB() {
 			try {
-				const response = await fetch(`http://localhost/LAB8_10/api/comments.php`)
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/comments.php`)
 				const data = await response.json()
                 this.addComments(data)
 			} 
@@ -46,7 +46,7 @@ export const useCommentsStore = defineStore({
 		},
         async addCommentInDB(newComment) {
 			try {
-				const response = await fetch(`http://localhost/LAB8_10/api/comments.php?micropost_id=${newComment.post_id}&session_id=${newComment.session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/comments.php?micropost_id=${newComment.post_id}&session_id=${newComment.session_id}`, {
 					method: 'POST',
 					body: JSON.stringify(newComment.post),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },

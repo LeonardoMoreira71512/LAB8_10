@@ -1,5 +1,6 @@
 /* Style the login form container */
-.login-form {
+
+/*.login-form {
     max-width: 400px;
     margin: 0 auto;
     padding: 30px;
@@ -9,12 +10,14 @@
 }
 
 /* Style the form headings */
-.login-form h2 {
+
+/*.login-form h2 {
     text-align: center;
     color: #333;
 }
 
 /* Style the form labels */
+/*
 .login-form label {
     display: block;
     margin-bottom: 8px;
@@ -22,6 +25,8 @@
 }
 
 /* Style the form input fields */
+
+/*
 .login-form input[type="text"],
 .login-form input[type="email"],
 .login-form input[type="password"] {
@@ -34,6 +39,8 @@
 }
 
 /* Style the Login button */
+
+/*
 .login-form button[type="submit"] {
     background-color: rgb(11, 145, 6);
     color: #fff;
@@ -49,11 +56,15 @@
 }
 
 /* Add some spacing to the form */
+
+/*
 .login-form .form-group {
     margin-bottom: 20px;
 }
 
 /* Center the form horizontally */
+
+/*
 .login-form {
     display: flex;
     flex-direction: column;
@@ -61,6 +72,8 @@
 }
 
 /* Style the footer */
+
+/*
 .footer {
     position: fixed;
     left: 0;

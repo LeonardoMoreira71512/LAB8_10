@@ -17,12 +17,12 @@
 					</div>
 				</div>
 				<div class="carousel-item c-item">
-					<img src="../assets/images/trip7.jpeg" class="rounded-circle d-block w-100 c-img" alt="iamge 2">
+					<img src="../assets/images/trip7.jpeg" class="rounded-circle d-block w-100 c-img" alt="image 2">
 					<div class="carousel-caption d-none d-md-block">
 					</div>
 				</div>
 				<div class="carousel-item c-item">
-					<img src="../assets/images/trip9.jpeg" class="rounded-circle d-block w-100 c-img" alt="iamg 3">
+					<img src="../assets/images/trip9.jpeg" class="rounded-circle d-block w-100 c-img" alt="image 3">
 					<div class="carousel-caption d-none d-md-block">
 					</div>
 				</div>
@@ -102,20 +102,8 @@ export default {
 	},
 	mounted() {
 		this.micropostsStore.getMicropostsInDB()
-		this.getUser()
-		this.activateScroll()
 	},
 	methods: {
-		getUser() {
-			this.user = this.userStore.getUser
-		},
-		activateScroll(){
-			var r="html,body{overflow:auto !important;}"; 
-			var s=document.createElement("style"); 
-			s.appendChild(document.createTextNode(r)); 
-			document.body.appendChild(s); 
-			void 0;
-		}
 	},
 	computed: {
 		microposts() {

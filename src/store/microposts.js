@@ -46,7 +46,7 @@ export const useMicropostsStore = defineStore({
         },     
         async getMicropostsInDB() {
 			try {
-				const response = await fetch(`http://localhost/LAB8_10/api/microposts.php`)
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/microposts.php`)
 				const data = await response.json()
                 this.addMicroposts(data)
                 return true
@@ -57,7 +57,7 @@ export const useMicropostsStore = defineStore({
 		},
         async addMicropostInDB(newMicropost) {
 			try {
-				const response = await fetch(`http://localhost/LAB8_10/api/microposts.php?session_id=${newMicropost.session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/microposts.php?session_id=${newMicropost.session_id}`, {
 					method: 'POST',
 					body: JSON.stringify(newMicropost),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -73,7 +73,7 @@ export const useMicropostsStore = defineStore({
 		},
         async updateMicropostInDB(micropost) {
 			try {
-				const response = await fetch(`http://localhost/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
 					method: 'PUT',
 					body: JSON.stringify(micropost.post),
                     headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -88,7 +88,7 @@ export const useMicropostsStore = defineStore({
 		},
 		async deleteMicropostInDB(micropost) {
 			try {
-			await fetch(`http://localhost/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
+			await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/microposts.php?micropost_id=${micropost.id}&session_id=${micropost.session_id}`, {
                 method: 'DELETE',                
             })
             this.deleteMicropost(micropost.id)
