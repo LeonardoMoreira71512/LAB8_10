@@ -1,7 +1,6 @@
 <template>
 	<div class="logout">
 			<h1 class="success-message" style="text-align: center;">{{message}}</h1>
-	
 	</div>
 </template>
 
@@ -77,10 +76,26 @@ export default {
 
 	.success-message {
 	color: #32a95d;
+	font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #e6fff0;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 	}
 
 	.error-message {
 	color: #d33c40;
+	font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #ffe6e6;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 	}
 
 </style>

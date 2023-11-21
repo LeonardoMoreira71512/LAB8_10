@@ -3,7 +3,6 @@ import Microposts from '../views/Microposts.vue'
 import Register from '../views/Register.vue'
 import Message from '../views/Message.vue'
 import Login from '../views/Login.vue'
-import Logout from '../views/Logout.vue'
 import Post from '../views/Post.vue'
 import UpdatePost from '../views/UpdatePost.vue'
 import CommentPost from '../views/CommentPost.vue'
@@ -24,10 +23,6 @@ const routes = [
   {
     path: '/login',
     component: Login
-  }, 
-  {
-    path: '/logout',
-    component: Logout
   }, 
   {
     path: '/post',
