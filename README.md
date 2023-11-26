@@ -45,3 +45,6 @@ Note: Replace "12345" with your student number
 ```sh
 npm run lint
 ```
+
+home template:
+![image](https://github.com/LeonardoMoreira71512/LAB8_10/assets/73541881/f5c0923c-c0a3-4a6f-9a87-48d3c6ea4a8c)
