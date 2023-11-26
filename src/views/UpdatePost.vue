@@ -42,7 +42,7 @@ export default {
 		submitting: false,
 		error: false,
         post: {
-            content:"",                           
+            content:'',                           
         },
 		user: {
 			id: '', 
@@ -81,9 +81,9 @@ export default {
 
 			this.updatePost(updateMicropost)
 		},
-		async updatePost(Micropost) {
-			await this.micropostsStore.addMicropostInDB(Micropost)
-			this.$router.push('/message/3')
+		async updatePost(updateMicropost) {
+			await this.micropostsStore.updateMicropostDB(updateMicropost)
+			this.$router.push('/message/1')
 		},
 		cancel() {
 			this.$router.push('/')

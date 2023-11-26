@@ -57,10 +57,38 @@
 						<div class="card-body">
 							{{ micropost.content }}
 						</div>
-						<p v-if="micropost.user_id === user.id">
-							<router-link class="btn btn-primary btn-sm float-end" :to="'/updatePost/' + micropost.id"
+						<p v-if="!userIsEmpty && micropost.user_id === user.id">
+							<router-link class="btn custom-btn float-end" :to="'/updatePost/' + micropost.id"
 								role="button">Update</router-link>
 						</p>
+						<p v-if="!userIsEmpty && micropost.user_id != user.id">
+							<router-link class="btn custom-btn float-end" :to="'/commentPost/' + micropost.id"
+								role="button">Comment Post</router-link>
+						</p>
+					</div>
+					<div v-if="micropost.id === show">
+						<div v-if="visibleComments && visibleComments.length">
+							<ul v-for="comment in visibleComments" :key="comment.id">
+								<li>
+								<div class="card comment-card">
+	        						<div class="card-header">
+	            						Comment by: {{ comment.user_name }} on {{ comment.created_at }}
+	       							</div>
+	       							 <div class="card-body">
+	            						{{ comment.content }}
+	        						</div>
+	    						</div>
+								</li>
+							</ul>
+						</div>
+						<!-- Mostrar a mensagem "No Comments" se não houver comentários -->
+						<div v-else class="no-comments">
+							<p>No Comments</p>
+						</div>
+					</div>
+					<div v-if="micropost.id != show" class="show-comments">
+						<a @click="showComments(micropost.id)" class="btn-show-comments" role="button">Show
+							Comments</a>
 					</div>
 				</div>
 				<!-- Add more cards here as needed -->
@@ -102,8 +130,16 @@ export default {
 	},
 	mounted() {
 		this.micropostsStore.getMicropostsInDB()
+		this.commentsStore.getCommentsInDB()
 	},
 	methods: {
+		showComments(postId) {
+			if (this.show === postId) {
+				this.show = null;
+			} else {
+				this.show = postId;
+			}
+		},
 	},
 	computed: {
 		microposts() {
@@ -111,9 +147,89 @@ export default {
 		},
 		user() {
 			return this.userStore.getUser;
+		},
+		comments() {
+			return this.commentsStore.getPostComments(id);
+		},
+		visibleComments() {
+			if (this.show) {
+				return this.commentsStore.getPostComments(this.show);
+			}
+			return [];
+		},
+		userIsEmpty: function () {
+			let obj = this.userStore.getUser
+			return Object.keys(obj).length === 0;
 		}
 	}
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.custom-btn {
+    background-color: #470b9a93;
+    color: white;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-btn:hover {
+    background-color: #470b9a;
+    color: white;
+}
+.no-comments {
+    background-color: #fff3cd;
+    color: rgba(89, 9, 5, 0.786);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.show-comments {
+    text-align: center;
+    margin-top: 10px;
+	padding: 0 15px;
+}
+
+.btn-show-comments {
+    background-color: rgb(13, 149, 154);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+	width: 100%;
+}
+
+.btn-show-comments:hover {
+    background-color: #367c6f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.comment-card {
+    background-color: #d7d7d7;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.comment-card .card-header {
+    background-color: #1919c993;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.comment-card .card-body {
+    padding: 15px;
+    color: #333;
+    font-size: 1rem;
+}
+
+</style>

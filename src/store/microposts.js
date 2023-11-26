@@ -71,11 +71,11 @@ export const useMicropostsStore = defineStore({
 				console.error(error)
 			}
 		},
-        async updateMicropostInDB(micropost) {
+        async updateMicropostDB(updateMicropost) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/microposts.php?micropost_id=${micropost.post_id}&session_id=${micropost.session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a71512/LAB8_10/api/microposts.php?micropost_id=${updateMicropost.post_id}&session_id=${updateMicropost.session_id}`, {
 					method: 'PUT',
-					body: JSON.stringify(micropost.post),
+					body: JSON.stringify(updateMicropost),
                     headers: { 'Content-type': 'application/json; charset=UTF-8' },
 				})
 				const data = await response.json()
@@ -84,6 +84,7 @@ export const useMicropostsStore = defineStore({
 			} 
 				catch (error) {
 					console.error(error)
+                    return false;
 			}
 		},
 		async deleteMicropostInDB(micropost) {
